@@ -11,6 +11,7 @@ Welcome to s's documentation!
    :caption: Contents:
 
    modules
+   portfolio_optimizer
 
 Indices and tables
 ==================
