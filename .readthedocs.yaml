@@ -14,5 +14,3 @@ python:
 # Set the OS, Python version, and other tools you might need
 build:
   os: ubuntu-24.04
-  tools:
-    python: "3.10"
