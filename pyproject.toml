@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# !TODO: Change these settings
+name = "portfolio_optimizer"
+version = "0.0"
+authors = [
+  { name="Kristóf Müller"},
+  { name="You"},
+]
+maintainers = [
+  { name="Kristóf Müller", email = "muller.kristof@itk.ppke.hu"},
+]
+description = "An example package"
+readme = {file = "README.md", content-type = "text/markdown"}
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+]
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+# Get dependencies dynamically from requirements.txt
+dependencies = {file = ["requirements.txt"]}
+
+[project.urls]
+# !TODO: Change these settings
+Homepage = "http://your-git.com"
+Documentation = "http://your-readthedocs.com"
+Repository = "https://github.com/SirArthur100/scientific_python"
+Issues = "https://github.com/SirArthur100/scientific_python/issues"
+
+[tool.setuptools]
+# Name of the package directory
+packages = ["example_package"]

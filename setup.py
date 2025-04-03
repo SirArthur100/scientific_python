@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 # Parse README.md as long_description
 with open("README.md", "r", encoding="utf-8") as f:
@@ -26,7 +26,8 @@ setup(
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
-    packages=["src"],  # Name of the package directory
+    package_dir={"": "src"},  # Set the package directory to be 'src'
+    packages=find_packages(where="src"),  # Automatically find packages in 'src'
     install_requires=[require],
     python_requires=">=3.10",
 )

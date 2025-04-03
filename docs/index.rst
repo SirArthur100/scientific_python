@@ -1,9 +1,9 @@
-.. h documentation master file, created by
-   sphinx-quickstart on Thu Apr  3 23:06:00 2025.
+.. s documentation master file, created by
+   sphinx-quickstart on Fri Apr  4 00:06:14 2025.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to h's documentation!
+Welcome to s's documentation!
 =============================
 
 .. toctree::
