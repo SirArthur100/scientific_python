@@ -1,41 +1,15 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import logging
+
+log = logging.getLogger(__name__)
+log.info("Loading calc_utils.py")
+
 from scipy import optimize
 from typing import Union
 from dataclasses import dataclass
-
-
-def data_loader(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Processes stock price data in a DataFrame by converting dates and resampling to monthly frequency.
-
-    Parameters:
-    ----------
-    df : pd.DataFrame
-        A DataFrame containing stock price data. Must include a 'Date' column representing daily dates, and other columns corresponding to stock tickers with their daily prices as floats.
-
-    Returns:
-    -------
-    pd.DataFrame
-        A DataFrame indexed by monthly dates (using the first day of each month), where each stock column's value is the first available daily price in each month.
-
-    Notes:
-    -----
-    - The function infers appropriate data types for each column.
-    - The 'Date' column is converted to datetime format and set as the DataFrame index.
-    - Monthly resampling is performed with the resampled period labeled and closed on the left.
-    """
-    df = df.infer_objects()
-    df["Date"] = pd.to_datetime(df["Date"])
-    df.set_index("Date", drop=True, inplace=True)
-    df = df.resample("M", label="left", closed="left").first()
-    df = df.diff() / df.shift(1)
-    df = df.dropna()
-    return df
-
-
-# utility functions
+from .data_utils import OptimRes
 
 
 def calculate_sharpe(
@@ -58,6 +32,7 @@ def calculate_sharpe(
     float or np.ndarray
         The Sharpe ratio, representing the risk-adjusted return.
     """
+    log.debug(f"calculate_sharpe = {((ret - TBill) / std):.2f}")
     return (ret - TBill) / std
 
 
@@ -78,6 +53,7 @@ def minimize_variance(weights: np.ndarray, cov_matrix: np.ndarray) -> float:
         The calculated variance of the portfolio.
     """
     variance = np.matmul(np.matmul(weights, cov_matrix), weights)
+    log.debug(f"minimize_variance = {variance:.2f}")
     return variance
 
 
@@ -95,6 +71,7 @@ def weight_constraint(weights: np.ndarray) -> float:
     float
         The deviation from the target sum (should be 0 for a valid constraint).
     """
+    log.debug(f"weight_constraint = {(np.sum(weights) - 1.0):.2f}")
     return np.sum(weights) - 1.0
 
 
@@ -118,53 +95,11 @@ def return_constraint(
     float
         The deviation from the desired target return (should be 0 for a valid constraint).
     """
+    log.debug(f"return_constraint = {(weights @ returns - return_target):.2f}")
     return weights @ returns - return_target
 
 
-@dataclass
-class OptimRes:
-    res: optimize._optimize.OptimizeResult
-    means: np.ndarray
-    stds: np.ndarray
-    sharpe_array: np.ndarray
-    return_array: np.ndarray
-    variance_array: np.ndarray
-
-    def plot_efficient_horizon(self) -> None:
-        """
-        Plots the efficient frontier along with individual asset points and the point with the maximum Sharpe ratio.
-        """
-        fig, ax = plt.subplots(1, 1, figsize=(6, 6))
-        # Scatter plot for the variance and return of each optimized portfolio
-        ax.plot(
-            self.variance_array,
-            self.return_array,
-            "--",
-            label="Efficient frontier under constraints",
-        )
-
-        # Scatter plot for the standard deviations and means of individual assets
-        ax.scatter(self.stds, self.means, color="blue", label="Individual Assets")
-
-        # Highlight the portfolio with the maximum Sharpe ratio
-        max_sharpe_idx = np.argmax(self.sharpe_array)
-        ax.scatter(
-            self.variance_array[max_sharpe_idx],
-            self.return_array[max_sharpe_idx],
-            color="red",
-            label="Max Sharpe Ratio",
-        )
-
-        # Add labels and legend
-        ax.set_xlabel("Variance (%)")
-        ax.set_ylabel("Returns (%)")
-        ax.set_title("Efficient Frontier with Individual Assets")
-        for i, txt in enumerate(self.means.index):
-            ax.annotate(txt, (self.stds[i] + 1, self.means[i] + 1))
-        ax.legend()
-
-
-def markovicz_optimizer(df: pd.DataFrame, risk_free_rate: float) -> OptimRes:
+def markowitz_optimizer(df: pd.DataFrame, risk_free_rate: float = 3.5) -> OptimRes:
     """
     Optimizes a portfolio using the Markowitz optimization framework by finding the efficient frontier, which
     consists of portfolios that offer the highest expected return for a given level of risk.
@@ -172,11 +107,10 @@ def markovicz_optimizer(df: pd.DataFrame, risk_free_rate: float) -> OptimRes:
     Parameters:
     ----------
     df : pd.DataFrame
-        A DataFrame where each column represents the returns of a stock and each row corresponds to a date.
-        The returns should be in decimal form (e.g., 0.01 for 1%).
+        A DataFrame returned by the data_loader function, containing historical stock prices.
 
     risk_free_rate : float
-        The annual risk-free rate, expressed as a decimal (e.g., 0.03 for 3%). This rate is used in the calculation of the Sharpe ratio.
+        The annual risk-free rate, expressed as percentage (e.g., 3.0 for 3%). This rate is used in the calculation of the Sharpe ratio.
 
     Returns:
     -------
@@ -204,16 +138,15 @@ def markovicz_optimizer(df: pd.DataFrame, risk_free_rate: float) -> OptimRes:
     - It iterates over a range of possible returns, optimizing the portfolio for each and calculating the corresponding Sharpe ratio.
     - The function assumes that the DataFrame's columns are well-prepared without any preprocessing required for missing data handling.
 
-    Example Usage:
-    --------------
-    # Assuming `stock_data` is a DataFrame with stock returns and `0.01` is the risk-free rate:
-    means, stds, sharpe_ratios, targeted_returns, variances = markovicz_optimizer(stock_data, 0.01)
     """
+
+    # w is for annualizing weekly returns and standard deviations
+    w = 52.1429
 
     # Calculate covariance matrix and annualize returns and standard deviations
     cov_matrix = df.cov()
-    means = df.mean().apply(lambda x: (x * 12) * 100)
-    stds = df.std().apply(lambda x: (x * np.sqrt(12)) * 100)
+    means = df.mean().apply(lambda x: (x * w) * 100)
+    stds = df.std().apply(lambda x: (x * np.sqrt(w)) * 100)
 
     # Initialize weights and set bounds for each weight
     lower_bound = 0.0
@@ -224,9 +157,13 @@ def markovicz_optimizer(df: pd.DataFrame, risk_free_rate: float) -> OptimRes:
     return_array = []
     variance_array = []
     sharpe_array = []
+    weights_out = []
 
     # Iterate through a range of possible returns
     returns_to_iterate_through = np.linspace(0, np.max(means.values), 40)
+
+    log.debug(f"returns_to_iterate_through = {(returns_to_iterate_through)}")
+
     for ret in returns_to_iterate_through:
         # Define constraints for weight sum and targeted return
         cons = [
@@ -247,10 +184,15 @@ def markovicz_optimizer(df: pd.DataFrame, risk_free_rate: float) -> OptimRes:
         if res.success:
             # Calculate Sharpe ratio and adjust variance to annualized percent form
             sharpe_ratio = calculate_sharpe(
-                ret, np.sqrt(res.fun) * np.sqrt(12) * 100, risk_free_rate
+                ret, np.sqrt(res.fun) * np.sqrt(w) * 100, risk_free_rate
             )
             sharpe_array.append(sharpe_ratio)
             return_array.append(ret)
-            variance_array.append(np.sqrt(res.fun) * np.sqrt(12) * 100)
+            variance_array.append(np.sqrt(res.fun) * np.sqrt(w) * 100)
+            weights_out.append(res.x)
+            log.info("Optimization successful")
 
-    return OptimRes(res, means, stds, sharpe_array, return_array, variance_array)
+    log.info("Optimization returning")
+    return OptimRes(
+        np.array(weights_out), means, stds, sharpe_array, return_array, variance_array
+    )

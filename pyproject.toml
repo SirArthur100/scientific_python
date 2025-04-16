@@ -4,14 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 # !TODO: Change these settings
-name = "portfolio_optimizer"
-version = "0.0"
+name = "example_package_SirArthur100"
+version = "0.1"
 authors = [
-  { name="Kristóf Müller"},
-  { name="You"},
+  { name="SZD", email = "sziklaidominik09@gmail.com"},
 ]
 maintainers = [
-  { name="Kristóf Müller", email = "muller.kristof@itk.ppke.hu"},
+  { name="SzD", email = "sziklaidominik09@gmail.com"},
 ]
 description = "An example package"
 readme = {file = "README.md", content-type = "text/markdown"}
@@ -31,11 +30,11 @@ dependencies = {file = ["requirements.txt"]}
 
 [project.urls]
 # !TODO: Change these settings
-Homepage = "http://your-git.com"
-Documentation = "http://your-readthedocs.com"
+Homepage = "https://github.com/SirArthur100"
+Documentation = "https://portfolio-optimizer.readthedocs.io/en/latest/"
 Repository = "https://github.com/SirArthur100/scientific_python"
 Issues = "https://github.com/SirArthur100/scientific_python/issues"
 
 [tool.setuptools]
-# Name of the package directory
-packages = ["example_package"]
+package-dir = { "" = "src" }
+packages = { find = { where = ["src"] } }

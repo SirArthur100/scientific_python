@@ -9,8 +9,8 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
     require = f.read().splitlines()
 
 setup(
-    name="portfolio_optimizer",  # Name of the package
-    version="0.0",
+    name="_test_11111",  # Name of the package
+    version="0.1",
     description="naive Markovicz model",
     author="Sziklai Dominik, Gátmezei Kornél",
     author_email="...",
