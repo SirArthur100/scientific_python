@@ -44,8 +44,11 @@ and the optimal portfolio weights numerically:
 Requirements:
 ==================
 numpy==1.26.3
+
 pandas==2.1.4
+
 matplotlib==3.8.1
+
 scipy==1.11.4
 
 Documentation:

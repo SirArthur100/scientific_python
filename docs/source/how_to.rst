@@ -5,7 +5,9 @@ A simple example of how to use the package is as follows:
 -----------------------------
 
 
-* Import necessary modules
+A small demonstration of how to use the package can be found:
+-----------------------------
+https://colab.research.google.com/drive/1-wyukil-5yji3M3_iwRqz2FK-THGfCP9?usp=sharing
 
 .. code-block::
    :caption: Install package
@@ -24,7 +26,8 @@ A simple example of how to use the package is as follows:
 .. code-block::
    :caption: Load data
 
-       df = data_loader("./example_dataset.csv")
+       data_path = files("markowitz_portfolio_optimizer.data").joinpath("example_dataset.csv")
+       df = data_loader(data_path)
 
 .. code-block::
    :caption: Run optimizer
