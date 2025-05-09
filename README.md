@@ -21,19 +21,19 @@ which can be obtained from Yahoo Finance, Google Finance or other sources.
 A sample table structure is as follows:
 
 <div align="center">
-<img src="docs/source/images/table.png" width="50%">
+<img src="https://github.com/SirArthur100/scientific_python/raw/main/docs/source/images/table.png" width="50%">
 </div>
 
 The algorithm will provide the efficient frontier visually:
 
 <div align="center">
-<img src="docs/source/images/illustration.png" width="50%">
+<img src="https://github.com/SirArthur100/scientific_python/raw/main/docs/source/images/illustration.png" width="50%">
 </div>
 
 and the optimal portfolio weights numerically:
 
 <div align="center">
-<img src="docs/source/images/weights.png" width="50%">
+<img src="https://github.com/SirArthur100/scientific_python/raw/main/docs/source/images/weights.png" width="50%">
 </div>
 
 ## Requirements
