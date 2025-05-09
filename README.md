@@ -41,8 +41,3 @@ https://portfolio-optimizer.readthedocs.io/en/latest/
 
 ## Source
 https://github.com/SirArthur100/scientific_python
-
-## Contents
-- [How to Guide](how_to.md)
-- [Optimizer](optimizer.md)
-- [Modules](modules.md)
