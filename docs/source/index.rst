@@ -59,6 +59,10 @@ Source:
 ==================
 https://github.com/SirArthur100/scientific_python
 
+Find on Pypi:
+==================
+https://pypi.org/project/markowitz-portfolio-optimizer/
+
 Indices and tables
 ==================
 

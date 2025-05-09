@@ -1,9 +1,6 @@
 How to use the package?
 ========================
 
-A simple example of how to use the package is as follows:
------------------------------
-
 
 A small demonstration of how to use the package can be found:
 -----------------------------
