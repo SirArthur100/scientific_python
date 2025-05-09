@@ -8,11 +8,18 @@ A simple example of how to use the package is as follows:
 * Import necessary modules
 
 .. code-block::
+   :caption: Install package
+
+        !pip install markowitz_portfolio_optimizer
+
+
+.. code-block::
    :caption: Imports
 
-       import matplotlib.pyplot as plt
-       from portfolio_optimizer.data_utils import data_loader
-       from portfolio_optimizer.calc_utils import markowitz_optimizer
+        import matplotlib.pyplot as plt
+        from markowitz_portfolio_optimizer.data_utils import data_loader
+        from markowitz_portfolio_optimizer.calc_utils import markowitz_optimizer
+        from importlib.resources import files
 
 .. code-block::
    :caption: Load data

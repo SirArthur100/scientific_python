@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 # !TODO: Change these settings
 name = "markowitz_portfolio_optimizer"
-version = "1.2"
+version = "1.25"
 authors = [
   { name="SZD", email = "sziklaidominik09@gmail.com"},
 ]
@@ -35,6 +35,6 @@ Documentation = "https://portfolio-optimizer.readthedocs.io/en/latest/"
 Repository = "https://github.com/SirArthur100/scientific_python"
 Issues = "https://github.com/SirArthur100/scientific_python/issues"
 
-[tool.setuptools]
-package-dir = { "" = "portfolio_optimizer" }
-packages = { find = { where = ["portfolio_optimizer"] } }
+
+[tool.setuptools.package-data]
+"markowitz_portfolio_optimizer.data" = ["*.csv"]
