@@ -1,4 +1,4 @@
-# Welcome to Portfolio Optimizer's documentation!
+# Portfolio Optimizer
 
 This project implements the simple Markowitz portfolio optimization model.
 It is the foundation of modern portfolio theory.
@@ -20,15 +20,21 @@ The algorithm needs a timestamped dataset of stock prices,
 which can be obtained from Yahoo Finance, Google Finance or other sources.
 A sample table structure is as follows:
 
-![Table Structure](images/table.png)
+<div align="center">
+<img src="docs/source/images/table.png" width="50%">
+</div>
 
 The algorithm will provide the efficient frontier visually:
 
-![Efficient Frontier](images/illustration.png)
+<div align="center">
+<img src="docs/source/images/illustration.png" width="50%">
+</div>
 
 and the optimal portfolio weights numerically:
 
-![Portfolio Weights](images/weights.png)
+<div align="center">
+<img src="docs/source/images/weights.png" width="50%">
+</div>
 
 ## Requirements
 - numpy==1.26.3
