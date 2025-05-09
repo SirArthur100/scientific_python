@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
 
 setup(
     name="markowitz_portfolio_optimizer",  # Name of the package
-    version="0.1",
+    version="1.2",
     description="naive Markovicz model",
     author="Sziklai Dominik, Gátmezei Kornél",
     author_email="...",
