@@ -9,7 +9,7 @@ with open("requirements.txt", "r", encoding="utf-8") as f:
     require = f.read().splitlines()
 
 setup(
-    name="_test_11111",  # Name of the package
+    name="markowitz_portfolio_optimizer",  # Name of the package
     version="0.1",
     description="naive Markovicz model",
     author="Sziklai Dominik, Gátmezei Kornél",
@@ -26,8 +26,10 @@ setup(
         "Operating System :: OS Independent",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
-    package_dir={"": "src"},  # Set the package directory to be 'src'
-    packages=find_packages(where="src"),  # Automatically find packages in 'src'
+    package_dir={"": "portfolio_optimizer"},  # Set the package directory to be 'src'
+    packages=find_packages(
+        where="portfolio_optimizer"
+    ),  # Automatically find packages in 'src'
     install_requires=[require],
     python_requires=">=3.10",
 )

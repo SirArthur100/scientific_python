@@ -4,15 +4,15 @@ build-backend = "setuptools.build_meta"
 
 [project]
 # !TODO: Change these settings
-name = "example_package_SirArthur100"
-version = "0.1"
+name = "markowitz_portfolio_optimizer"
+version = "1.0"
 authors = [
   { name="SZD", email = "sziklaidominik09@gmail.com"},
 ]
 maintainers = [
-  { name="SzD", email = "sziklaidominik09@gmail.com"},
+  { name="GK", email = "gatmezei.kornel@gmail.com"},
 ]
-description = "An example package"
+description = "Optimize you portfolio!"
 readme = {file = "README.md", content-type = "text/markdown"}
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
@@ -36,5 +36,5 @@ Repository = "https://github.com/SirArthur100/scientific_python"
 Issues = "https://github.com/SirArthur100/scientific_python/issues"
 
 [tool.setuptools]
-package-dir = { "" = "src" }
-packages = { find = { where = ["src"] } }
+package-dir = { "" = "portfolio_optimizer" }
+packages = { find = { where = ["portfolio_optimizer"] } }

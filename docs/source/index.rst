@@ -41,6 +41,21 @@ and the optimal portfolio weights numerically:
    :maxdepth: 2
    :caption: Contents:
 
+Requirements:
+==================
+numpy==1.26.3
+pandas==2.1.4
+matplotlib==3.8.1
+scipy==1.11.4
+
+Documentation:
+==================
+https://portfolio-optimizer.readthedocs.io/en/latest/
+
+Source:
+==================
+https://github.com/SirArthur100/scientific_python
+
 Indices and tables
 ==================
 

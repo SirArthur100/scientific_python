@@ -7,27 +7,34 @@ A simple example of how to use the package is as follows:
 
 * Import necessary modules
 
-``import matplotlib.pyplot as plt
-from portfolio_optimizer.data_utils import data_loader
-from portfolio_optimizer.calc_utils import markowitz_optimizer``
+.. code-block::
+   :caption: Imports
 
-* Load data
+       import matplotlib.pyplot as plt
+       from portfolio_optimizer.data_utils import data_loader
+       from portfolio_optimizer.calc_utils import markowitz_optimizer
 
-``df = data_loader("./example_dataset.csv")``
+.. code-block::
+   :caption: Load data
 
-* Run optimizer
+       df = data_loader("./example_dataset.csv")
 
-``res = markowitz_optimizer(df)``
+.. code-block::
+   :caption: Run optimizer
 
-* Plot the efficient frontier
- 
-``fig, ax = plt.subplots(figsize=(8, 6))
-res.plot_efficient_horizon(ax)``
+       res = markowitz_optimizer(df)
 
-* Plot the optimal portfolio
+.. code-block::
+   :caption: Plot efficient horizon
 
-``fig, ax = plt.subplots(figsize=(8, 6))
-res.plot_optimal_weights(ax)``
+       fig, ax = plt.subplots(figsize=(8, 6))
+       res.plot_efficient_horizon(ax)
+
+.. code-block::
+   :caption: Plot the optimal portfolio
+
+       fig, ax = plt.subplots(figsize=(8, 6))
+       res.plot_optimal_weights(ax)
 
 Extra API
 -----------------------------
