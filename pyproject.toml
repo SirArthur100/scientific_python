@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 # !TODO: Change these settings
 name = "markowitz_portfolio_optimizer"
-version = "1.26"
+version = "1.27"
 authors = [
   { name="SZD", email = "sziklaidominik09@gmail.com"},
 ]
